@@ -2372,6 +2372,15 @@ Handlers.list_processes = function(p)
     }
 end
 
+-- Cheat Engine exposes getProcessList() as a pid -> name table and has no
+-- getProcessNameFromID(); resolve the attached process name from that table.
+local function mcpProcessNameFromID(pid)
+    if not pid or pid == 0 then return nil end
+    local pl = getProcessList()
+    if type(pl) ~= "table" then return nil end
+    return pl[pid]
+end
+
 Handlers.attach_process = function(p)
     Utils.validateParams(p, {"target"})
 
@@ -2411,7 +2420,7 @@ Handlers.attach_process = function(p)
     return {
         success = true,
         pid = getOpenedProcessID(),
-        name = processName or getProcessNameFromID(pid) or "N/A",
+        name = processName or mcpProcessNameFromID(pid) or "N/A",
         is64bit = targetIs64Bit()
     }
 end
