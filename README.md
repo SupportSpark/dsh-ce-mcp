@@ -104,6 +104,16 @@ ctx.plugin(mcpClient, {
 If the host only publishes `@deepseek-ai/dsh-mcp-client` inside its own tree, the loader walks
 up from `process.execPath` to find it.
 
+### Why the server is staged out of `node_modules`
+
+A plugin lives inside the profile's `node_modules`, and package managers replace that directory
+wholesale on install or upgrade. On Windows, a child process running a script from inside it holds
+a handle that makes the replacement fail with `EPERM` — which the plugin manager surfaces as
+"no write permission" and a half-replaced package. So `apply()` copies `mcp/` to
+`%LOCALAPPDATA%\dsh-ce-mcp\mcp` (once per package version, tracked by `.staged-version`) and spawns
+the server from there. `node_modules` then contains no open files, and installing or retrying the
+plugin while it is active works.
+
 ## Troubleshooting
 
 | Symptom | Cause |
