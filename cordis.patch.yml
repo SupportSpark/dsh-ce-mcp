@@ -1,0 +1,6 @@
+# DSH bundle profile patch.
+# Makes the plugin installable AND active via:
+#   dsh plugin --profile desktop add github:SupportSpark/dsh-ce-mcp
+- insert:
+    - id: 'dsh-ce-mcp'
+      name: 'dsh-ce-mcp'

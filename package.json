@@ -1,0 +1,47 @@
+{
+  "name": "dsh-ce-mcp",
+  "version": "1.0.0",
+  "description": "DeepSeek Harness plugin: Cheat Engine MCP server (ce_mcp) exposed as ce_* tools over the bundled stdio server.",
+  "type": "module",
+  "main": "./lib/index.js",
+  "files": [
+    "lib",
+    "mcp",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "mcp",
+    "cheat-engine",
+    "reverse-engineering",
+    "memory-scanner"
+  ],
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SupportSpark/dsh-ce-mcp.git"
+  },
+  "homepage": "https://github.com/SupportSpark/dsh-ce-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/SupportSpark/dsh-ce-mcp/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-mcp-client": ">=0.2.1-rc <2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
